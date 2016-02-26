@@ -1,13 +1,12 @@
 ---
-title: API Reference
+title: Dart Keeper API
 
 language_tabs:
-  - shell
   - ruby
-  - python
+
 
 toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
+  - <a href='http://www.bluetread.com'>Please visit our site!</a>
   - <a href='https://github.com/tripit/slate'>Documentation Powered by Slate</a>
 
 includes:
@@ -18,11 +17,11 @@ search: true
 
 # Introduction
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+Welcome to the Dart Keeper API, here you can use our API to view player information such as matches and games.
 
-We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+Here we have language bindings in Ruby which you can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
 
-This example API documentation page was created with [Slate](https://github.com/tripit/slate). Feel free to edit it and use it as a base for your own API's documentation.
+Current API Version: V1
 
 # Authentication
 
@@ -32,18 +31,6 @@ This example API documentation page was created with [Slate](https://github.com/
 require 'kittn'
 
 api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-```
-
-```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
 ```
 
 > Make sure to replace `meowmeowmeow` with your API key.
@@ -58,9 +45,11 @@ Kittn expects for the API key to be included in all API requests to the server i
 You must replace <code>meowmeowmeow</code> with your personal API key.
 </aside>
 
-# Kittens
+# Players
 
-## Get All Kittens
+## Get All Players
+
+> This will be replaced .
 
 ```ruby
 require 'kittn'
@@ -69,57 +58,59 @@ api = Kittn::APIClient.authorize!('meowmeowmeow')
 api.kittens.get
 ```
 
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
-```
-
-```shell
-curl "http://example.com/api/kittens"
-  -H "Authorization: meowmeowmeow"
-```
-
 > The above command returns JSON structured like this:
 
 ```json
 [
   {
     "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
+    "email": "fred@email.com",
+    "password": "fruit",
+    "first_name": "Fred",
+    "last_name": "Armisen",
+    "auth_token": "dg6F8j0FtytF2",
+    "created_at": "2016-02-05T14:34:22.618Z",
+    "updated_at": "time2",
+    "password_digest": "test"
   },
   {
     "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
+    "email": "carrie@email.com",
+    "password": "vegetables",
+    "first_name": "Carrie",
+    "last_name": "Brownstein",
+    "auth_token": "dg6F8j0FtytF2",
+    "created_at": "2016-02-05T14:34:22.618Z",
+    "updated_at": "time2",
+    "password_digest": "test"
   }
 ]
 ```
 
-This endpoint retrieves all kittens.
+This endpoint retrieves all players.
 
 ### HTTP Request
 
-`GET http://example.com/api/kittens`
+`GET http://dartkeeper.com/api/<version-id>/players`
 
 ### Query Parameters
 
 Parameter | Default | Description
 --------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
+blank | false | blank
+blank | true | blank
+
+### URL Parameter
+Parameter | Description
+--------- | -----------
+version-id | current version of API
+
 
 <aside class="success">
-Remember — a happy kitten is an authenticated kitten!
+Remember — you must be authenticated!
 </aside>
 
-## Get a Specific Kitten
+## Get a Specific Player
 
 ```ruby
 require 'kittn'
@@ -128,41 +119,132 @@ api = Kittn::APIClient.authorize!('meowmeowmeow')
 api.kittens.get(2)
 ```
 
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2"
-  -H "Authorization: meowmeowmeow"
-```
 
 > The above command returns JSON structured like this:
 
 ```json
 {
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
+  {
+    "id": 1,
+    "email": "carrie@email.com",
+    "password": "vegetables",
+    "first_name": "Carrie",
+    "last_name": "Brownstein",
+    "auth_token": "dg6F8j0FtytF2",
+    "created_at": "2016-02-05T14:34:22.618Z",
+    "updated_at": "time2",
+    "password_digest": "test"
+  }
 }
 ```
 
-This endpoint retrieves a specific kitten.
-
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
+This endpoint retrieves a specific player.
 
 ### HTTP Request
 
-`GET http://example.com/kittens/<ID>`
+`GET http://dartkeeper.com/api/<version-id>/<ID>`
 
 ### URL Parameters
 
 Parameter | Description
 --------- | -----------
-ID | The ID of the kitten to retrieve
+version-id | current version of API
+ID | The ID of the player to retrieve
 
+## Create Player
+
+> This will return the created player in JSON format.
+
+```json
+
+  {
+    "id": 3,
+    "email": "dknight@email.com",
+    "password": "gotham",
+    "first_name": "Bruce",
+    "last_name": "Wayne",
+    "auth_token": "dg6F8j0FtytF2",
+    "created_at": "2016-02-05T14:34:22.618Z",
+    "updated_at": "time2",
+    "password_digest": "test"
+  }
+}
+```
+
+This endpoint retrieves the newly created player's data.
+
+### HTTP Request
+
+`POST http://dartkeeper.com/api/<version-id>/<ID>`
+
+### URL Parameters
+Parameter | Description
+--------- | -----------
+version-id | current version of API
+ID | The ID of the player to create
+
+
+## Update Player
+
+> This will return the updated player in JSON format.
+
+```json
+
+  {
+    "id": 3,
+    "email": "dknight@email.com",
+    "password": "gotham",
+    "first_name": "Bat",
+    "last_name": "Man",
+    "auth_token": "dg6F8j0FtytF2",
+    "created_at": "2016-02-05T14:34:22.618Z",
+    "updated_at": "time2",
+    "password_digest": "test"
+  }
+}
+```
+
+This endpoint retrieves the updated player's data.
+
+### HTTP Request
+
+`PUT http://dartkeeper.com/api/<version-id>/<ID>`
+
+### URL Parameters
+Parameter | Description
+--------- | -----------
+version-id | current version of API
+ID | The ID of the player to update
+
+
+# Matches
+
+## Get All Matches
+
+## Get a Specific Match
+
+## Create Match
+
+## Update Match
+
+# Games
+
+## Get All Games
+
+## Get a Specific Game
+
+## Create Game
+
+## Update Game
+
+# Throws
+
+## Get All Throws
+
+## Get a Specific Throw
+
+## Create Throw Event
+
+## Update Throw
+
+# DELETE
