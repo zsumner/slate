@@ -2,7 +2,7 @@
 title: Dart Keeper API
 
 language_tabs:
-  - ruby
+  - http
 
 
 toc_footers:
@@ -17,7 +17,7 @@ search: true
 
 # Introduction
 
-Welcome to the Dart Keeper API, here you can use our API to view player information such as matches and games.
+Welcome to the Dart Keeper API, here you can use our API to view and retrieve information.
 
 Here we have language bindings in Ruby which you can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
 
@@ -25,86 +25,100 @@ Current API Version: V1
 
 # Authentication
 
-> To authorize, use this code:
+> To authenticate, send an HTTP Post request with the email and password as URL parameters
+to dartkeeperweb-env.elasticbeanstalk.com/api/v1/login
 
-```ruby
-require 'kittn'
+> An example POST request and response from the API is shown below.
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
+```http
+POST /api/v1/login?email=test@40test.com&password=test123 HTTP/1.1
+Host: dartkeeperweb-env.elasticbeanstalk.com
+
+
+HTTP/1.1 201 Created
+Content-Type: application/json; charset=utf-8
+{
+  "id": 1,
+  "email": "test@test.com",
+  "token": "lbyfBAq6KTpo+qYuU9NSwLHwgqmc5Ib/R5
+  WRU75HlUfV77EbabPs4rci85LqS/8ai6RmVyvvXwegiSWteeHqIg=="
+}
 ```
 
-> Make sure to replace `meowmeowmeow` with your API key.
+DartKeeper uses API keys to allow access to the API. Whenever a new player is created, a unique authentication token
+is associated to that player.
 
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
+When you sign in to the application, you will send a HTTP POST Request to with the username and email.
+If the credentials are successful, DartKeeper will send back the unique authentication token.
 
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
+# Authorization
 
-`Authorization: meowmeowmeow`
+> To authorize, send an HTTP request with the email and token in the Authorization Header
 
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
+> An example request and response from the API is shown below.
+
+```http
+GET /api/v1/resource HTTP/1.1
+Accept: application/json
+Host: dartkeeperweb-env.elasticbeanstalk.com
+Authorization: Token token="TnQfBY1S/aMdO46sUfXx8mkPa4yxawqgaqVlD2YNzj19QlGI0
+2eFIpoj9YaBtXm3efQZt5oXIQ6DpBw9gvuVGA==", email="test@test.com"
+
+
+HTTP/1.1 200 OK
+Content-Type: application/json
+{
+  "user":{
+    "id":1,
+    "email":"test@test.com",
+    "name":"Example Use",
+    "created_at":"2015-01-13T20:35:24Z",
+    "updated_at":"2015-02-09T19:47:36Z"
+  }
+}
+```
+
+After retrieving the token, DartKeeper expects for this token to be included in all API subsequent requests to the server in a header.
+You can authenticate in the API by providing the user’s token and email in the Authorization header.
 
 # Players
 
 ## Get All Players
 
-> This will be replaced .
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
+```http
+GET /api/v1/players HTTP/1.1
+Accept: application/json
+Host: dartkeeperweb-env.elasticbeanstalk.com
+Authorization: Token token="TnQfBY1S/aMdO46sUfXx8mkPa4yxawqgaqVlD2YNzj19QlGI0
+2eFIpoj9YaBtXm3efQZt5oXIQ6DpBw9gvuVGA==", email="test@test.com"
 ```
 
 > The above command returns JSON structured like this:
 
 ```json
-[
-  {
-    "id": 1,
-    "email": "fred@email.com",
-    "password": "fruit",
-    "first_name": "Fred",
-    "last_name": "Armisen",
-    "auth_token": "dg6F8j0FtytF2",
-    "created_at": "2016-02-05T14:34:22.618Z",
-    "updated_at": "time2",
-    "password_digest": "test"
-  },
-  {
-    "id": 2,
-    "email": "carrie@email.com",
-    "password": "vegetables",
-    "first_name": "Carrie",
-    "last_name": "Brownstein",
-    "auth_token": "dg6F8j0FtytF2",
-    "created_at": "2016-02-05T14:34:22.618Z",
-    "updated_at": "time2",
-    "password_digest": "test"
-  }
-]
+{
+  "players": [
+    {
+      "id": 1,
+      "email": "danny@test.com",
+      "first_name": "Dan",
+      "last_name": "Doe"
+    },
+    {
+      "id": 2,
+      "email": "justin@test.com",
+      "first_name": "Justin",
+      "last_name": "Doe"
+    }
+  ]
+}
 ```
 
 This endpoint retrieves all players.
 
 ### HTTP Request
 
-`GET http://dartkeeper.com/api/<version-id>/players`
-
-### Query Parameters
-
-Parameter | Default | Description
---------- | ------- | -----------
-blank | false | blank
-blank | true | blank
-
-### URL Parameter
-Parameter | Description
---------- | -----------
-version-id | current version of API
-
+`GET http://dartkeeperweb-env.elasticbeanstalk.com/api/v1/players`
 
 <aside class="success">
 Remember — you must be authenticated!
@@ -112,11 +126,12 @@ Remember — you must be authenticated!
 
 ## Get a Specific Player
 
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
+```http
+GET /api/v1/players/1 HTTP/1.1
+Accept: application/json
+Host: dartkeeperweb-env.elasticbeanstalk.com
+Authorization: Token token="TnQfBY1S/aMdO46sUfXx8mkPa4yxawqgaqVlD2YNzj19QlGI0
+2eFIpoj9YaBtXm3efQZt5oXIQ6DpBw9gvuVGA==", email="test@test.com"
 ```
 
 
@@ -124,16 +139,11 @@ api.kittens.get(2)
 
 ```json
 {
-  {
+  "player": {
     "id": 1,
-    "email": "carrie@email.com",
-    "password": "vegetables",
-    "first_name": "Carrie",
-    "last_name": "Brownstein",
-    "auth_token": "dg6F8j0FtytF2",
-    "created_at": "2016-02-05T14:34:22.618Z",
-    "updated_at": "time2",
-    "password_digest": "test"
+    "email": "danny@test.com",
+    "first_name": "Dan",
+    "last_name": "Doe"
   }
 }
 ```
@@ -142,50 +152,68 @@ This endpoint retrieves a specific player.
 
 ### HTTP Request
 
-`GET http://dartkeeper.com/api/<version-id>/<ID>`
+`GET http://dartkeeperweb-env.elasticbeanstalk.com/api/v1/<ID>`
 
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-version-id | current version of API
-ID | The ID of the player to retrieve
+<aside class="success">
+Remember — you must be authenticated!
+</aside>
 
 ## Create Player
+
+```http
+POST /api/v1/players/ HTTP/1.1
+Authorization: Token token="lbyfBAq6KTpo+qYuU9NSwLHwgqmc5Ib/R5WRU75HlUfV97Ebab
+Ps4rci85LqS/8ai6RmVyvvXwegiSWteeHqIg==", email="danny@test.com"
+Content-Type: application/json
+Host: dartkeeperweb-env.elasticbeanstalk.com
+
+{
+  "first_name": "test_firstname",
+  "last_name": "test_lastname",
+  "email": "test@test.com",
+  "password": "123"
+}
+```
 
 > This will return the created player in JSON format.
 
 ```json
-
-  {
+{
+  "player": {
     "id": 3,
-    "email": "dknight@email.com",
-    "password": "gotham",
-    "first_name": "Bruce",
-    "last_name": "Wayne",
-    "auth_token": "dg6F8j0FtytF2",
-    "created_at": "2016-02-05T14:34:22.618Z",
-    "updated_at": "time2",
-    "password_digest": "test"
+    "email": "test@test.com",
+    "first_name": "test_firstname",
+    "last_name": "test_lastname"
   }
 }
 ```
 
-This endpoint retrieves the newly created player's data.
+This endpoint creates a new player.
 
 ### HTTP Request
 
-`POST http://dartkeeper.com/api/<version-id>/<ID>`
+`POST http://dartkeeperweb-env.elasticbeanstalk.com/api/v1/players`
 
-### URL Parameters
-Parameter | Description
---------- | -----------
-version-id | current version of API
-ID | The ID of the player to create
+<aside class="success">
+Remember — you must be authenticated!
+</aside>
+
 
 
 ## Update Player
 
+```http
+POST /api/v1/players/1 HTTP/1.1
+Authorization: Token token="lbyfBAq6KTpo+qYuU9NSwLHwgqmc5Ib/R5WRU75HlUfV97Ebab
+Ps4rci85LqS/8ai6RmVyvvXwegiSWteeHqIg==", email="danny@test.com"
+Content-Type: application/json
+Host: dartkeeperweb-env.elasticbeanstalk.com
+
+{
+  "first_name": "test_firstname_update",
+  "last_name": "test_lastname_update"
+}
+```
 > This will return the updated player in JSON format.
 
 ```json
@@ -201,14 +229,20 @@ ID | The ID of the player to create
     "updated_at": "time2",
     "password_digest": "test"
   }
-}
+
 ```
 
 This endpoint retrieves the updated player's data.
 
+You can update a player's attributes by sending a PUT request to /api/v1/players/{id} with the necessary attributes.
+
 ### HTTP Request
 
-`PUT http://dartkeeper.com/api/<version-id>/<ID>`
+`PUT http://dartkeeperweb-env.elasticbeanstalk.com/api/v1/<ID>`
+
+<aside class="success">
+Remember — you must be authenticated!
+</aside>
 
 ### URL Parameters
 Parameter | Description
