@@ -354,35 +354,215 @@ Remember — you must be authenticated!
 </tr>
 </tbody></table>
 
-<h1 id="matches">Matches</h1>
+<!-- # Matches
 
-<h2 id="get-all-matches">Get All Matches</h2>
+## Get All Matches
 
-<h2 id="get-a-specific-match">Get a Specific Match</h2>
+## Get a Specific Match
 
-<h2 id="create-match">Create Match</h2>
+## Create Match
 
-<h2 id="update-match">Update Match</h2>
+## Update Match
 
-<h1 id="games">Games</h1>
+# Games
 
-<h2 id="get-all-games">Get All Games</h2>
+## Get All Games
 
-<h2 id="get-a-specific-game">Get a Specific Game</h2>
+## Get a Specific Game
 
-<h2 id="create-game">Create Game</h2>
+## Create Game
 
-<h2 id="update-game">Update Game</h2>
+## Update Game -->
 
 <h1 id="throws">Throws</h1>
 
 <h2 id="get-all-throws">Get All Throws</h2>
+<pre class="highlight http"><code><span class="nf">GET</span> <span class="nn">/api/v1/throws</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">dartkeeperweb-env.elasticbeanstalk.com</span>
+<span class="na">Authorization</span><span class="p">:</span> <span class="s">Token token="TnQfBY1S/aMdO46sUfXx8mkPa4yxawqgaqVlD2YNzj19QlGI0</span>
+<span class="s">2eFIpoj9YaBtXm3efQZt5oXIQ6DpBw9gvuVGA==", email="test@test.com"</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"throws"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"zone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"d10"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-04-08T13:25:18.941Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"player"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"zak@test.com"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Zak"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sumner"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"zone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"t15"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-04-08T13:25:25.737Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"player"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"zak@test.com"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Zak"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sumner"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>This endpoint retrieves all players.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://dartkeeperweb-env.elasticbeanstalk.com/api/v1/throws</code></p>
+
+<aside class="success">
+Remember — you must be authenticated!
+</aside>
 
 <h2 id="get-a-specific-throw">Get a Specific Throw</h2>
+<pre class="highlight http"><code><span class="nf">GET</span> <span class="nn">/api/v1/throws/1</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">dartkeeperweb-env.elasticbeanstalk.com</span>
+<span class="na">Authorization</span><span class="p">:</span> <span class="s">Token token="TnQfBY1S/aMdO46sUfXx8mkPa4yxawqgaqVlD2YNzj19QlGI0</span>
+<span class="s">2eFIpoj9YaBtXm3efQZt5oXIQ6DpBw9gvuVGA==", email="test@test.com"</span>
+</code></pre>
 
-<h2 id="create-throw-event">Create Throw Event</h2>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"throw"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"zone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"d10"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-04-08T13:25:18.941Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"player"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"zak@test.com"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Zak"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sumner"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>This endpoint retrieves a specific player.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://dartkeeperweb-env.elasticbeanstalk.com/api/v1/&lt;ID&gt;</code></p>
+
+<aside class="success">
+Remember — you must be authenticated!
+</aside>
+
+<h2 id="create-throw">Create Throw</h2>
+<pre class="highlight http"><code><span class="nf">POST</span> <span class="nn">/api/v1/throws/</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Authorization</span><span class="p">:</span> <span class="s">Token token="lbyfBAq6KTpo+qYuU9NSwLHwgqmc5Ib/R5WRU75HlUfV97Ebab</span>
+<span class="s">Ps4rci85LqS/8ai6RmVyvvXwegiSWteeHqIg==", email="danny@test.com"</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">dartkeeperweb-env.elasticbeanstalk.com</span>
+
+<span class="p">{</span><span class="w">
+  </span><span class="nt">"zone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"d10"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"player_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>This will return the created player in JSON format.</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"throw"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">24</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"zone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"d10"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-04-08T14:04:25.956Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"player"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"zak@test.com"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Zak"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sumner"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>This endpoint creates a new player.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">POST http://dartkeeperweb-env.elasticbeanstalk.com/api/v1/players</code></p>
+
+<aside class="success">
+Remember — you must be authenticated!
+</aside>
 
 <h2 id="update-throw">Update Throw</h2>
+<pre class="highlight http"><code><span class="nf">POST</span> <span class="nn">/api/v1/throw/24</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Authorization</span><span class="p">:</span> <span class="s">Token token="lbyfBAq6KTpo+qYuU9NSwLHwgqmc5Ib/R5WRU75HlUfV97Ebab</span>
+<span class="s">Ps4rci85LqS/8ai6RmVyvvXwegiSWteeHqIg==", email="danny@test.com"</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">dartkeeperweb-env.elasticbeanstalk.com</span>
+
+<span class="p">{</span><span class="w">
+  </span><span class="nt">"zone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"s10"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>This will return the updated player in JSON format.</p>
+</blockquote>
+<pre class="highlight json"><code><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="nt">"throw"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">24</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"zone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"s10"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-04-08T14:04:25.956Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"player"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"zak@test.com"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Zak"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sumner"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre>
+
+<p>This endpoint retrieves the updated throws&rsquo;s data.</p>
+
+<p>You can update a throws&rsquo;s attributes by sending a PUT request to /api/v1/throws/{id} with the necessary attributes.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">PUT http://dartkeeperweb-env.elasticbeanstalk.com/api/v1/&lt;ID&gt;</code></p>
+
+<aside class="success">
+Remember — you must be authenticated!
+</aside>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>version-id</td>
+<td>current version of API</td>
+</tr>
+<tr>
+<td>ID</td>
+<td>The ID of the player to update</td>
+</tr>
+</tbody></table>
 
 <h1 id="delete">DELETE</h1>
 
